@@ -1,0 +1,64 @@
+<div mat-dialog-content>
+  <div class="row">
+    <div class="col-8"></div>
+    <div class="col-4 text-right">
+      <mat-icon aria-label="close" (click)="onNoClick()">close</mat-icon>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-4">
+      <img src="{{beer.image_url}}" alt="Photo of a beer" class="beerBanner">
+    </div>
+    <div class="col-8 beerBanner">
+      <h4 class="colored font-weight-bold">{{beer.name}}</h4>
+      <p class="deep">{{beer.tagline}}</p>
+      <p class="deep">
+        IBU:&nbsp;<span class="light font-weight-normal">{{beer.ibu}}</span>&nbsp;&nbsp;
+        ABV:&nbsp;<span class="light font-weight-normal">{{beer.abv}}%</span>&nbsp;&nbsp;
+        EBC:&nbsp;<span class="light font-weight-normal">{{beer.ebc}}</span>
+      </p>
+      <p class="light small">
+        {{beer.description}}
+      </p>
+      <span class="deep">
+          Best served with
+      </span>
+      <ul>
+         <li *ngFor="let item of beer.food_pairing" class="light small">
+          {{item}}
+        </li>
+      </ul>
+
+
+    </div>
+  </div>
+
+  <div >
+      <p class="colored font-weight-bold">You might also like:</p>
+      <mat-grid-list [cols]="3" rowHeight="210px" *ngIf="beer.simillarBeers">
+        <mat-grid-tile *ngFor="let beer of beer.simillarBeers">
+          <mat-card>
+            <mat-card-content>
+              <img mat-card-sm-image src="{{beer.image_url}}" alt="Photo of a beer">
+              <p  class="deep">{{beer.name}}</p>
+            </mat-card-content>
+          </mat-card>
+        </mat-grid-tile>
+      </mat-grid-list>
+
+      <mat-progress-spinner *ngIf="!beer.simillarBeers"
+        class="example-margin"
+        color="accent"
+        mode="indeterminate"
+        >
+    </mat-progress-spinner>
+    </div>
+  
+
+
+
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Close</button>
+</div>

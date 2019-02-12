@@ -1,0 +1,41 @@
+.icon {
+  padding: 0 14px;
+}
+
+
+.left-spacer {
+  flex: 1 1 auto;
+}
+
+.jumbotron {
+  background-color: #fb8c00;
+  color: #fff;
+  padding: 4px;
+  border-radius: 0px !important;
+  margin-top: 52px;
+}
+
+.mat-card {
+  width: 200px;
+  height: 280px;
+  text-align: center;
+
+}
+
+.mat-card-sm-image {
+  height: 140px;
+  width: 60px;
+
+}
+
+.colored {
+  margin-top: 12px !important;
+  margin-bottom: 4px;
+  color: #fb8c00;
+}
+
+.fav {
+  position: absolute;
+  right: 4px;
+  top: 4px;
+}

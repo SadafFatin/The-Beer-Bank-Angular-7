@@ -1,0 +1,97 @@
+<mat-toolbar color="accent" class="fixed-top">
+  <mat-toolbar-row>
+
+    <span class="left-spacer"></span>
+    <a mat-button routerLink="/" class="text-decoration-none" color="primary">Home</a>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<div class="jumbotron text-center">
+  <h3>The Beer Bank</h3>
+  <p>Find your favourite beer here</p>
+
+  
+
+
+  <!--div class="d-flex justify-content-center">
+    <input class="form-control" style="width: 200px;margin-right: 4px;" type="text" [(ngModel)]="search_param"
+      placeholder="Search for beer name">
+      <a mat-raised-button class="text-decoration-none" routerLink="/advance" color="accent">
+        <mat-icon aria-label="Example icon-button with a heart icon">search</mat-icon>
+        Advance Search
+      </a>
+  </div-->
+</div>
+
+<div class="container">
+    <mat-card class.mat-elevation-z20>
+        <mat-card-header>
+          <mat-card-title>Search By Alcohol by volume</mat-card-title>
+          <mat-card-subtitle>Select Maximum and Minimum AVB </mat-card-subtitle>
+        </mat-card-header>
+         <mat-card-content>
+           <div class="d-flex justify-content-start">
+             <div>
+                <p>Select Max AVB</p>
+                <mat-slider
+              thumbLabel
+              [displayWith]="maxAVB"
+              tickInterval="10"
+              min="1"
+              max="100"
+              color="warn"></mat-slider>
+            
+             </div>
+             <div>
+                <p>Select Min AVB</p>
+                <mat-slider
+                thumbLabel
+                [displayWith]="minAVB"
+                tickInterval="10"
+                min="1"
+                max="100"
+                color="accent"></mat-slider></div></div>
+          
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="accent" (click)="search()">Search</button> 
+        </mat-card-actions>
+      </mat-card>
+      
+      
+      <div *ngIf="search_results" style="margin-top: 4px;">
+          <mat-toolbar  color="accent">
+            <mat-toolbar-row>
+                <span class="text-white">{{search_results.length}} results found</span>
+                <span class="left-spacer"></span>
+                <button mat-icon-button><mat-icon (click)="clearResult()">clear</mat-icon></button>
+              </mat-toolbar-row>
+            </mat-toolbar>
+          <mat-grid-list [cols]="breakpoint" rowHeight="300px" (window:resize)="onResize($event)">
+            <mat-grid-tile *ngFor="let beer of search_results">
+              <mat-card class.mat-elevation-z12 class="result-card">
+                <mat-card-header>
+                </mat-card-header>
+                <mat-card-content (click)="selectBeer(beer)">
+                  <img mat-card-sm-image src="{{beer.image_url}}" alt="Photo of a beer">
+                  <p class="h6 colored font-weight-bold">{{beer.name}}</p>
+                  <p class="text-muted">{{beer.tagline}}</p>
+                </mat-card-content>
+              </mat-card>
+            </mat-grid-tile>
+      
+            <mat-grid-tile *ngIf="searching" [colspan]="breakpoint">
+              <mat-progress-spinner color="accent" mode="indeterminate">
+              </mat-progress-spinner>
+            </mat-grid-tile>
+          </mat-grid-list>
+        </div>
+
+
+
+
+
+
+
+
+</div>

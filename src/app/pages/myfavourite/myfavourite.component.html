@@ -1,0 +1,37 @@
+<mat-toolbar color="accent" class="fixed-top">
+    <mat-toolbar-row>
+      <span class="left-spacer"></span>
+      <a mat-button routerLink="/"  class="text-decoration-none" color="primary">Home</a>
+      <a mat-button routerLink="/myfav" class="text-decoration-none" color="primary">Favourite</a>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  
+  <div class="jumbotron text-center">
+      <h1>The Beer Bank</h1>
+      <p>My favourite beers</p>
+  </div>
+
+
+<div class="container" >
+
+  <mat-grid-list [cols]="breakpoint" rowHeight="300px" (window:resize)="onResize($event)">
+    <mat-grid-tile *ngFor="let beer of favouriteItems">
+      <mat-card (mouseover)="beer.isActive=true" (mouseout)="beer.isActive=false" [class.mat-elevation-z2]="!beer.isActive"
+        [class.mat-elevation-z20]="beer.isActive">
+        <mat-card-header>
+          <button mat-icon-button [color]="beer.color" (click)="removeFromFavourite(beer)" class="fav">
+            <mat-icon aria-label="heart icon">star</mat-icon>
+          </button>
+        </mat-card-header>
+        <mat-card-content (click)="selectBeer(beer)">
+          <img mat-card-sm-image src="{{beer.image_url}}" alt="Photo of a beer">
+          <p class="h6 colored font-weight-bold">{{beer.name}}</p>
+          <p class="text-muted">{{beer.tagline}}</p>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+
+  </mat-grid-list>
+
+
+</div>

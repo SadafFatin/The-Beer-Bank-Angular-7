@@ -1,0 +1,85 @@
+<mat-toolbar color="accent" class="fixed-top">
+  <mat-toolbar-row>
+    <span class="left-spacer"></span>
+    <a mat-button routerLink="/" class="text-decoration-none" color="primary">Home</a>
+    <a mat-button routerLink="/myfav" class="text-decoration-none" color="primary">Favourite</a>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<div class="jumbotron text-center">
+  <h3>The Beer Bank</h3>
+  <p>Find your favourite beer here</p>
+  <div class="d-flex justify-content-center">
+    <input class="form-control" style="width: 200px;margin-right: 6px;" type="text" [(ngModel)]="search_param" placeholder="Search for beer name">
+    <button mat-stroked-button  color="primary" (click)="search()">
+      <mat-icon aria-label="Example icon-button with a heart icon">search</mat-icon>
+      Search
+    </button>
+  </div>
+  <a mat-raised-button class="text-decoration-none" routerLink="/advance" color="accent" style="margin: 10px;">
+    <mat-icon aria-label="Example icon-button with a heart icon">search</mat-icon>
+    Advance Search
+</a>
+  
+</div>
+
+<div class="container">
+  
+  <div *ngIf="search_results">
+    <mat-toolbar  color="accent">
+      <mat-toolbar-row>
+          <span class="text-white">{{search_results.length}} results found</span>
+          <span class="left-spacer"></span>
+          <button mat-icon-button><mat-icon (click)="clearResult()">clear</mat-icon></button>
+        </mat-toolbar-row>
+      </mat-toolbar>
+    <mat-grid-list [cols]="breakpoint" rowHeight="300px" (window:resize)="onResize($event)">
+      <mat-grid-tile *ngFor="let beer of search_results">
+        <mat-card class.mat-elevation-z12 >
+          <mat-card-header>
+          </mat-card-header>
+          <mat-card-content (click)="selectBeer(beer)">
+            <img mat-card-sm-image src="{{beer.image_url}}" alt="Photo of a beer">
+            <p class="h6 colored font-weight-bold">{{beer.name}}</p>
+            <p class="text-muted">{{beer.tagline}}</p>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+
+      <mat-grid-tile *ngIf="searching" [colspan]="breakpoint">
+        <mat-progress-spinner color="accent" mode="indeterminate">
+        </mat-progress-spinner>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+
+
+
+  <mat-grid-list [cols]="breakpoint" rowHeight="300px" (window:resize)="onResize($event)" infiniteScroll (scrolled)="onScroll()"
+    [scrollWindow]="true" [infiniteScrollDistance]="1" [infiniteScrollThrottle]="500">
+    <mat-grid-tile *ngFor="let beer of beers">
+      <mat-card (mouseover)="makeActive(beer)" (mouseout)="makeDisable(beer)" [class.mat-elevation-z2]="!beer.isActive"
+        [class.mat-elevation-z20]="beer.isActive">
+        <mat-card-header>
+          <button mat-icon-button [color]="beer.color" (click)="addToFav(beer)" class="fav">
+            <mat-icon aria-label="heart icon">star</mat-icon>
+          </button>
+        </mat-card-header>
+        <mat-card-content (click)="selectBeer(beer)">
+          <img mat-card-sm-image src="{{beer.image_url}}" alt="Photo of a beer">
+          <p class="h6 colored font-weight-bold">{{beer.name}}</p>
+          <p class="text-muted">{{beer.tagline}}</p>
+
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+
+    <mat-grid-tile *ngIf="loading" [colspan]="breakpoint">
+      <mat-progress-spinner color="accent" mode="indeterminate">
+      </mat-progress-spinner>
+    </mat-grid-tile>
+
+  </mat-grid-list>
+
+
+</div>
